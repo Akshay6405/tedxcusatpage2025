@@ -5,13 +5,13 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { 
-  Calendar, 
-  MapPin, 
-  Users, 
-  Play, 
-  Award, 
-  ChevronLeft, 
+import {
+  Calendar,
+  MapPin,
+  Users,
+  Play,
+  Award,
+  ChevronLeft,
   ChevronRight,
   ExternalLink,
   Youtube,
@@ -183,8 +183,8 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
     const ctx = gsap.context(() => {
       // Title animation
       gsap.fromTo(titleRef.current,
-        { 
-          opacity: 0, 
+        {
+          opacity: 0,
           y: 50,
           scale: 0.9
         },
@@ -192,8 +192,8 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 1,
-          ease: "power3.out",
+          duration: 1.2,
+          ease: "expo.out",
           scrollTrigger: {
             trigger: titleRef.current,
             start: "top 80%",
@@ -205,7 +205,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
 
       // Timeline events animation
       const timelineItems = timelineRef.current?.querySelectorAll('.timeline-item');
-      
+
       timelineItems?.forEach((item, index) => {
         gsap.fromTo(item,
           {
@@ -217,9 +217,9 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
             opacity: 1,
             x: 0,
             scale: 1,
-            duration: 0.8,
-            delay: index * 0.2,
-            ease: "power3.out",
+            duration: 1.2,
+            delay: index * 0.1,
+            ease: "expo.out",
             scrollTrigger: {
               trigger: item,
               start: "top 85%",
@@ -239,6 +239,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
 
         item.addEventListener('mouseenter', () => hoverTl.play());
         item.addEventListener('mouseleave', () => hoverTl.reverse());
+        (item as HTMLElement).style.willChange = 'transform, opacity';
       });
 
       // Stagger animation for event cards
@@ -266,7 +267,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
     setSelectedEvent(eventId);
     setCurrentImageIndex(0);
     // Add modal animation
-    gsap.fromTo('.modal-content', 
+    gsap.fromTo('.modal-content',
       { opacity: 0, scale: 0.8, y: 50 },
       { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power3.out" }
     );
@@ -286,7 +287,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
   const nextImage = () => {
     const event = journeyEvents.find(e => e.id === selectedEvent);
     if (event?.galleryImages) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         (prev + 1) % event.galleryImages!.length
       );
     }
@@ -295,7 +296,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
   const prevImage = () => {
     const event = journeyEvents.find(e => e.id === selectedEvent);
     if (event?.galleryImages) {
-      setCurrentImageIndex((prev) => 
+      setCurrentImageIndex((prev) =>
         prev === 0 ? event.galleryImages!.length - 1 : prev - 1
       );
     }
@@ -305,42 +306,37 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
 
   return (
     <>
-      <section 
+      <section
         ref={sectionRef}
         id="journey"
-        className={`py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden ${
-          isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
-        }`}
+        className={`py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'
+          }`}
         aria-label="TEDxCUSAT Journey Timeline"
       >
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className={`absolute top-20 -left-20 w-40 h-40 rounded-full ${
-            isDarkMode ? 'bg-red-500/5' : 'bg-red-500/10'
-          } blur-3xl`} />
-          <div className={`absolute bottom-20 -right-20 w-60 h-60 rounded-full ${
-            isDarkMode ? 'bg-red-500/5' : 'bg-red-500/10'
-          } blur-3xl`} />
+          <div className={`absolute top-20 -left-20 w-40 h-40 rounded-full ${isDarkMode ? 'bg-red-500/5' : 'bg-red-500/10'
+            } blur-3xl`} />
+          <div className={`absolute bottom-20 -right-20 w-60 h-60 rounded-full ${isDarkMode ? 'bg-red-500/5' : 'bg-red-500/10'
+            } blur-3xl`} />
         </div>
 
         <div className="max-w-7xl mx-auto relative">
           {/* Section Header */}
           <div ref={titleRef} className="text-center mb-20">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6 ${
-              isDarkMode ? 'bg-red-500/20 text-red-300' : 'bg-red-50 text-red-600'
-            }`}>
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6 ${isDarkMode ? 'bg-red-500/20 text-red-300' : 'bg-red-50 text-red-600'
+              }`}>
               <Clock className="w-4 h-4" />
               Our Journey
             </div>
-            
+
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
               A Legacy of <span style={{ color: colors.tedRed }}>Ideas</span>
             </h2>
-            
-            <p className={`text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed ${
-              isDarkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              From our first groundbreaking event to the present, explore the evolution of TEDxCUSAT 
+
+            <p className={`text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+              From our first groundbreaking event to the present, explore the evolution of TEDxCUSAT
               and the transformative ideas that have shaped our community over the years.
             </p>
 
@@ -352,24 +348,21 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                 { number: "3.5K+", label: "Attendees", icon: MapPin },
                 { number: "100+", label: "Ideas Shared", icon: Lightbulb }
               ].map((stat, index) => (
-                <div 
-                  key={index} 
-                  className={`p-6 rounded-2xl ${
-                    isDarkMode ? 'bg-gray-800/50' : 'bg-white/80'
-                  } backdrop-blur-sm border ${
-                    isDarkMode ? 'border-gray-700/50' : 'border-gray-200/50'
-                  } hover:scale-105 transition-all duration-300`}
+                <div
+                  key={index}
+                  className={`p-6 rounded-2xl ${isDarkMode ? 'bg-gray-800/50' : 'bg-white/80'
+                    } backdrop-blur-sm border ${isDarkMode ? 'border-gray-700/50' : 'border-gray-200/50'
+                    } hover:scale-105 transition-all duration-300`}
                 >
-                  <stat.icon 
-                    className="w-8 h-8 mx-auto mb-3" 
-                    style={{ color: colors.tedRed }} 
+                  <stat.icon
+                    className="w-8 h-8 mx-auto mb-3"
+                    style={{ color: colors.tedRed }}
                   />
                   <div className="text-2xl font-bold mb-1" style={{ color: colors.tedRed }}>
                     {stat.number}
                   </div>
-                  <div className={`text-sm ${
-                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
+                  <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
                     {stat.label}
                   </div>
                 </div>
@@ -380,22 +373,19 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
           {/* Timeline */}
           <div ref={timelineRef} className="relative">
             {/* Timeline line */}
-            <div className={`absolute left-1/2 top-0 bottom-0 w-1 ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-300'
-            } transform -translate-x-1/2 hidden lg:block`} />
+            <div className={`absolute left-1/2 top-0 bottom-0 w-1 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-300'
+              } transform -translate-x-1/2 hidden lg:block`} />
 
             <div className="space-y-16">
               {journeyEvents.map((event, index) => (
-                <div 
+                <div
                   key={event.id}
-                  className={`timeline-item flex flex-col lg:flex-row items-center gap-8 ${
-                    index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                  }`}
+                  className={`timeline-item flex flex-col lg:flex-row items-center gap-8 ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                    }`}
                 >
                   {/* Timeline dot */}
-                  <div className={`hidden lg:block absolute left-1/2 w-6 h-6 rounded-full border-4 ${
-                    isDarkMode ? 'bg-gray-900 border-red-500' : 'bg-white border-red-500'
-                  } transform -translate-x-1/2 z-10`} />
+                  <div className={`hidden lg:block absolute left-1/2 w-6 h-6 rounded-full border-4 ${isDarkMode ? 'bg-gray-900 border-red-500' : 'bg-white border-red-500'
+                    } transform -translate-x-1/2 z-10`} />
 
                   {/* Event Image */}
                   <div className="flex-1 relative group">
@@ -407,11 +397,11 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      
+
                       {/* Event number overlay */}
-                      <div 
+                      <div
                         className="absolute top-6 left-6 text-4xl font-bold px-4 py-2 rounded-xl backdrop-blur-sm"
-                        style={{ 
+                        style={{
                           backgroundColor: `${colors.tedRed}90`,
                           color: 'white'
                         }}
@@ -434,25 +424,22 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                   <div className="flex-1 space-y-6">
                     <div className="space-y-4">
                       <div className="flex items-center gap-4 flex-wrap">
-                        <div className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          isDarkMode ? 'bg-red-500/20 text-red-300' : 'bg-red-50 text-red-600'
-                        }`}>
+                        <div className={`px-3 py-1 rounded-full text-sm font-medium ${isDarkMode ? 'bg-red-500/20 text-red-300' : 'bg-red-50 text-red-600'
+                          }`}>
                           {event.date}
                         </div>
-                        <div className={`px-3 py-1 rounded-full text-sm ${
-                          isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'
-                        }`}>
+                        <div className={`px-3 py-1 rounded-full text-sm ${isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'
+                          }`}>
                           {event.theme}
                         </div>
                       </div>
-                      
+
                       <h3 className="text-3xl lg:text-4xl font-bold leading-tight">
                         {event.title}
                       </h3>
-                      
-                      <p className={`text-lg leading-relaxed ${
-                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                      }`}>
+
+                      <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                        }`}>
                         {event.description}
                       </p>
                     </div>
@@ -460,13 +447,12 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                     {/* Event highlights */}
                     <div className="event-highlights space-y-2">
                       {event.highlights.map((highlight, idx) => (
-                        <div 
+                        <div
                           key={idx}
-                          className={`event-highlight flex items-center gap-3 text-sm ${
-                            isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                          }`}
+                          className={`event-highlight flex items-center gap-3 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                            }`}
                         >
-                          <div 
+                          <div
                             className="w-2 h-2 rounded-full flex-shrink-0"
                             style={{ backgroundColor: colors.tedRed }}
                           />
@@ -486,16 +472,15 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                         <ImageIcon className="w-4 h-4 mr-2" />
                         View Gallery
                       </Button>
-                      
+
                       {event.videoUrl && (
                         <Button
                           variant="outline"
                           size="lg"
-                          className={`font-semibold hover:scale-105 transition-transform duration-200 ${
-                            isDarkMode 
-                              ? 'border-red-500 text-red-400 hover:bg-red-500/10' 
-                              : 'border-red-500 text-red-600 hover:bg-red-50'
-                          }`}
+                          className={`font-semibold hover:scale-105 transition-transform duration-200 ${isDarkMode
+                            ? 'border-red-500 text-red-400 hover:bg-red-500/10'
+                            : 'border-red-500 text-red-600 hover:bg-red-50'
+                            }`}
                           onClick={() => window.open(event.videoUrl, '_blank')}
                         >
                           <Youtube className="w-4 h-4 mr-2" />
@@ -513,14 +498,13 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
 
       {/* Enhanced Event Modal */}
       {selectedEvent && selectedEventData && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={closeEventModal}
         >
-          <div 
-            className={`modal-content max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-3xl ${
-              isDarkMode ? 'bg-gray-900' : 'bg-white'
-            } shadow-2xl`}
+          <div
+            className={`modal-content max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-3xl ${isDarkMode ? 'bg-gray-900' : 'bg-white'
+              } shadow-2xl`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -533,7 +517,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  
+
                   {/* Gallery navigation */}
                   {selectedEventData.galleryImages.length > 1 && (
                     <>
@@ -551,23 +535,22 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                       >
                         <ChevronRight className="w-6 h-6 text-white" />
                       </button>
-                      
+
                       {/* Image indicators */}
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                         {selectedEventData.galleryImages.map((_, idx) => (
                           <button
                             key={idx}
                             onClick={() => setCurrentImageIndex(idx)}
-                            className={`w-2 h-2 rounded-full transition-all ${
-                              idx === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                            }`}
+                            className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                              }`}
                             aria-label={`View image ${idx + 1}`}
                           />
                         ))}
                       </div>
                     </>
                   )}
-                  
+
                   {/* Close button */}
                   <button
                     onClick={closeEventModal}
@@ -587,36 +570,33 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
               {/* Event title and info */}
               <div className="space-y-4">
                 <div className="flex items-center gap-4 flex-wrap">
-                  <div 
+                  <div
                     className="text-3xl font-bold px-4 py-2 rounded-xl"
-                    style={{ 
+                    style={{
                       backgroundColor: `${colors.tedRed}20`,
-                      color: colors.tedRed 
+                      color: colors.tedRed
                     }}
                   >
                     {selectedEventData.number}
                   </div>
-                  <div className={`px-3 py-1 rounded-full text-sm ${
-                    isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'
-                  }`}>
+                  <div className={`px-3 py-1 rounded-full text-sm ${isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'
+                    }`}>
                     {selectedEventData.date}
                   </div>
                   {selectedEventData.attendance && (
-                    <div className={`px-3 py-1 rounded-full text-sm ${
-                      isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'
-                    }`}>
+                    <div className={`px-3 py-1 rounded-full text-sm ${isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-600'
+                      }`}>
                       {selectedEventData.attendance} attendees
                     </div>
                   )}
                 </div>
-                
+
                 <h3 className="text-3xl md:text-4xl font-bold">
                   {selectedEventData.title}
                 </h3>
-                
-                <p className={`text-lg leading-relaxed ${
-                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                }`}>
+
+                <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
                   {selectedEventData.description}
                 </p>
               </div>
@@ -629,17 +609,14 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {selectedEventData.keyTakeaways.map((takeaway, idx) => (
-                    <div 
+                    <div
                       key={idx}
-                      className={`p-4 rounded-xl ${
-                        isDarkMode ? 'bg-gray-800/50' : 'bg-gray-50'
-                      } border ${
-                        isDarkMode ? 'border-gray-700/50' : 'border-gray-200/50'
-                      }`}
+                      className={`p-4 rounded-xl ${isDarkMode ? 'bg-gray-800/50' : 'bg-gray-50'
+                        } border ${isDarkMode ? 'border-gray-700/50' : 'border-gray-200/50'
+                        }`}
                     >
-                      <div className={`text-sm ${
-                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                      }`}>
+                      <div className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                        }`}>
                         {takeaway}
                       </div>
                     </div>
@@ -656,11 +633,10 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                   </h4>
                   <div className="flex flex-wrap gap-3">
                     {selectedEventData.speakers.map((speaker, idx) => (
-                      <div 
+                      <div
                         key={idx}
-                        className={`px-4 py-2 rounded-full ${
-                          isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'
-                        }`}
+                        className={`px-4 py-2 rounded-full ${isDarkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-100 text-gray-700'
+                          }`}
                       >
                         {speaker}
                       </div>
@@ -686,11 +662,10 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
                   variant="outline"
                   size="lg"
                   onClick={closeEventModal}
-                  className={`${
-                    isDarkMode 
-                      ? 'border-gray-600 text-gray-300 hover:bg-gray-800' 
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className={`${isDarkMode
+                    ? 'border-gray-600 text-gray-300 hover:bg-gray-800'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                    }`}
                 >
                   Close
                 </Button>
