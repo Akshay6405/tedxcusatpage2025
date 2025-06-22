@@ -21,12 +21,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('tedx-theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
-    } else {
-      setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
+    // Always set to light mode on first load
+    setIsDarkMode(false);
+    localStorage.setItem('tedx-theme', 'light');
+    document.documentElement.classList.remove('dark');
   }, []);
 
   useEffect(() => {
