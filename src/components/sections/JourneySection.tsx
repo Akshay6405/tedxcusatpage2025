@@ -198,7 +198,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
             trigger: titleRef.current,
             start: "top 80%",
             end: "bottom 20%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           }
         }
       );
@@ -253,7 +253,7 @@ const JourneySection: React.FC<JourneySectionProps> = ({ isDarkMode }) => {
           scrollTrigger: {
             trigger: '.event-highlights',
             start: "top 80%",
-            toggleActions: "play none none reverse"
+            toggleActions: "play none none none"
           }
         }
       );
