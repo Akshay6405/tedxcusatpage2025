@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "TEDx CUSAT - Ideas Worth Spreading",
   description: "Join us at TEDx CUSAT for an inspiring journey of ideas, innovation, and transformation. Discover talks that challenge perspectives and ignite change.",
   keywords: "TEDx, CUSAT, ideas, innovation, talks, speakers, technology, education",
-  authors: [{ name: "TEDx CUSAT Team" }],
+  authors: [{ name: "Akshay" }],
   openGraph: {
     title: "TEDx CUSAT - Ideas Worth Spreading",
     description: "Join us at TEDx CUSAT for an inspiring journey of ideas, innovation, and transformation.",
